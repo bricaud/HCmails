@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Graph of H. Clinton's emails</title>
+<meta charset="utf-8">
+
+    <link rel="icon" href="http://www.eviacybernetics.com/favicon.ico" />
+    <link rel="stylesheet" href="http://www.eviacybernetics.com/css/style1.css" type="text/css">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.node circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  display: inline;
+  font: 10px sans-serif;
+}
+
+.node circle:hover {
+  fill: #000;
+}
+
+.node text:hover {
+  display: inline;
+}
+
+</style>
+<!--
+<div id="graph_props">
+  <div id="graph_name"></div>
+  <div id ="graph_start_date"></div>
+  <div id = "graph_end_date"></div>
+</div>
+<div>
+Options
+<form name="colorform">
+  <input type="radio" name="colorchoice" value="absolute" checked> Color according to absolute time<br>
+  <input type="radio" name="colorchoice" value="relative"> color according to relative component time<br>
+  <input type="button" onclick="update_graph(graph)" value="Update color">
+</form> 
+</div>
+-->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!--  <script src="https://github.com/kswedberg/jquery-smooth-scroll/blob/master/jquery.smooth-scroll.min.js"></script>-->
+  <script>
+    $(document).ready(function() {
+      $('.smooth').on('click', function() { // Au clic sur un élément
+        var page = $(this).attr('href'); // Page cible
+        var speed = 750; // Durée de l'animation (en ms)
+        $('html, body').animate( { scrollTop: $(page).offset().top }, speed ); // Go
+        return false;
+      });
+    });
+  </script>
+
+</head>
+<body>    
+  <div class="top"><a id="intro"></a>
+  </div>
+    <nav>
+      <ul>
+        <li class="menu">
+          <a class="smooth" href="http://www.eviacybernetics.com">
+            <img src="http://www.eviacybernetics.com/images/Eviacybernetics.png" width="100px"/>
+          </a>
+        </li>
+        <li class="menu"><a class="smooth" href="index.html">Clinton's mails</a></li>
+        <li class="menu"><a class="smooth" href="#viz">Graph</a></li>
+      </ul>
+    </nav>
+  <div>
+    <H1>Graph of nouns in Clinton's emails</H1>
+    <h2>Introduction</h2>
+    <p class="text"><img src="http://www.eviacybernetics.com/images/clintonmails.png" width="400px" style="float: left;"/>
+      This is an example of a visualization of a network of words. A look at the graph provides interesting insights into this dataset of emails. Topics discussed in the emails can be guessed from the figure and the labels (<a class="smooth" href="#viz">see the interactive figure below</a>).
+    </p>
+    <p class="text"> 
+      The nodes of the graph represent proper nouns found in the emails. They are connected if the nouns have been found together in several mails. In order to separate nodes into groups or clusters, a community detection algorithm has been applied to the graph. On the figure, each color represents a different community. A closer look shows that the communities are related to particular topics:
+    <ul style="text-align: left;">
+      <li>Middle East (dark purple)</li>
+      <li>Iran Pakistan (dark green)</li>
+      <li>North Africa (blue)</li>
+      <li>National politics (light green, red and pink)</li>
+      <li>Europe (light purple)</li>
+      <li>South America (light orange)</li>
+    </ul>
+    </p>
+    <p class="text">As expected, H. Clinton messages are mainly focused on Foreign affairs. At that time, the main concerns were about middle east and muslim countries. </p>
+    <p class="text">
+      Some themes are clear and well-separated, some other not. For example if you drag the node "Japan" (in light orange), it has been classified in the same cluster as south american countries and has a link with Brazil (that would be interesting to know why!). Notice that it is the case for Korea as well. It is also connected to the word "Asia" in the dark green cluster, and also to China in the light green cluster. These connections are of course not surprising and shows a glimpse of the complexity of international relationships. 
+      <img src="http://www.eviacybernetics.com/images/zoommiddleeast.png" width="300px" style="float: right;"/>
+    </p>
+    <p class="text">Concerning the relevance of the data displayed, we can point out a few uninformative nodes. The visualization could be improved further with an additional cleaning of the dataset. For example, "Clinton" should be removed (unless it refers to Bill) as everything is obviously related to Hillary. This node is a hub, with many connections, that add some confusion to the graph and the connected topics. Word containing numbers or nodes with month names should also be removed.
+    </p>    
+    <h2>Dataset</h2>
+    <p class="text"> The dataset is taken from <a href="https://www.kaggle.com/kaggle/hillary-clinton-emails">Kaggle</a> and contains the emails sent and received by Hillary Clinton between 2009 and 2011 in her private mailbox. The data has been open and made freely accessible to the public (except for some parts which have been censored). </p>
+    <h2>Visualization</h2>
+    <p class="text"> The scroll wheel of the mouse allows for zooming in and out and the entire graph can be displaced by dragging with the left button. The nodes can also be dragged and automatically rearrange themselves according to a "force layout". The data processing has been done in Python and the interactive visualization with javascript and d3.js.
+    </p>    
+    <div id="chart"><a id="viz"></a></div>
+    <script type="text/javascript" src="forcegraphHC.js"></script>
+    </div>
+
+</body>
+</html>
