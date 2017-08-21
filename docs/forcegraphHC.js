@@ -25,7 +25,7 @@ var simulation = d3.forceSimulation()
     .force("center", d3.forceCenter(width / 2, height / 2));
 
 //////////////////////////////////////////////////////////////////////:
-var graph = d3.json("HCgraph.json", function(error, data) {
+var graph = d3.json("HCgraph2.json", function(error, data) {
   if (error) throw error;
   graph = data;
   //write_graph_props(graph);
@@ -53,7 +53,7 @@ function update_graph(graph){
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
-      .attr("stroke-width", function(d) { return Math.sqrt(d.weight_norm); });
+      .attr("stroke-width", 1);
       //.style("marker-end",  "url(#suit)") // line with arrow ;
 
   // definition of nodes
@@ -68,7 +68,7 @@ function update_graph(graph){
                 .on("click",mouse_click);
 
     var nodec = node.append("circle")
-                  .attr("r", function(d){return Math.sqrt(d.degree_n)/2+2;})
+                  .attr("r", function(d){return Math.sqrt(d.degree)+4;})
                   .style("stroke","black")
                   .attr("fill", function(d) { return color(d.cluster); });
                   //.attr("fill", function(d) { if (color_choice=='absolute') {
@@ -81,7 +81,7 @@ function update_graph(graph){
 
 
   nodec.append("title")
-      .text(function(d) { return 'Nb occur: ' + d.degree +'\n'+ 'Start time: ' + d.start_time; });
+      .text(function(d) { return 'Nb occur: ' + d.degree ; });
 
   var text1 = node.append("text")
     .attr("x", 8)
